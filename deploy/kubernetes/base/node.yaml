@@ -41,7 +41,7 @@ spec:
         - name: ebs-plugin
           securityContext:
             privileged: true
-          image: k8s.gcr.io/provider-aws/aws-ebs-csi-driver:v1.1.1
+          image: dhub.c2.croc.ru/kaas/aws-ebs-csi-driver:latest
           args:
             - node
             - --endpoint=$(CSI_ENDPOINT)
@@ -54,6 +54,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: AWS_REGION
+              value: ru-msk
           volumeMounts:
             - name: kubelet-dir
               mountPath: /var/lib/kubelet
