@@ -3,5 +3,5 @@ kind: Kustomization
 bases:
 - ../../base
 images:
-- name: amazon/aws-ebs-csi-driver
+- name: dhub.c2.croc.ru/kaas/aws-ebs-csi-driver
   newTag: latest

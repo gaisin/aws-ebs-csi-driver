@@ -24,7 +24,7 @@ spec:
         - name: ebs-plugin
           securityContext:
             privileged: true
-          image: amazon/aws-ebs-csi-driver:latest
+          image: dhub.c2.croc.ru/kaas/aws-ebs-csi-driver:latest
           args:
             - --endpoint=$(CSI_ENDPOINT)
             - --logtostderr
@@ -32,6 +32,8 @@ spec:
           env:
             - name: CSI_ENDPOINT
               value: unix:/csi/csi.sock
+            - name: AWS_REGION
+              value: ru-msk
           volumeMounts:
             - name: kubelet-dir
               mountPath: /var/lib/kubelet
