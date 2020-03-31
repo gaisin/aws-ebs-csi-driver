@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/kubernetes-sigs/aws-ebs-csi-driver.svg?branch=master)](https://travis-ci.org/kubernetes-sigs/aws-ebs-csi-driver)
-[![Coverage Status](https://coveralls.io/repos/github/kubernetes-sigs/aws-ebs-csi-driver/badge.svg?branch=master)](https://coveralls.io/github/kubernetes-sigs/aws-ebs-csi-driver?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/kubernetes-sigs/aws-ebs-csi-driver)](https://goreportcard.com/report/github.com/kubernetes-sigs/aws-ebs-csi-driver)
+[![Build Status](https://travis-ci.org/c2devel/aws-ebs-csi-driver.svg?branch=master)](https://travis-ci.org/c2devel/aws-ebs-csi-driver)
+[![Coverage Status](https://coveralls.io/repos/github/c2devel/aws-ebs-csi-driver/badge.svg?branch=master)](https://coveralls.io/github/c2devel/aws-ebs-csi-driver?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/c2devel/aws-ebs-csi-driver)](https://goreportcard.com/report/github.com/c2devel/aws-ebs-csi-driver)
 
 # Amazon Elastic Block Store (EBS) CSI driver
 
@@ -135,7 +135,7 @@ The driver requires IAM permission to talk to Amazon EBS to manage the volume on
 * EKS only: Using [IAM roles for ServiceAccounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) - create an IAM role, attach the policy to it, then follow the IRSA documentation to associate the IAM role with the driver Deployment service account, which if you are installing via helm is determined by value `serviceAccount.controller.name`, `ebs-csi-controller-sa` by default
 * Using secret object - create an IAM user, attach the policy to it, put that user's credentials in [secret manifest](../deploy/kubernetes/secret.yaml), then deploy the secret
 ```sh
-curl https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/deploy/kubernetes/secret.yaml > secret.yaml
+curl https://raw.githubusercontent.com/c2devel/aws-ebs-csi-driver/master/deploy/kubernetes/secret.yaml > secret.yaml
 # Edit the secret with user credentials
 kubectl apply -f secret.yaml
 ```
@@ -148,12 +148,12 @@ Please see the compatibility matrix above before you deploy the driver
 
 If you want to deploy the stable driver without alpha features:
 ```sh
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-0.10"
+kubectl apply -k "github.com/c2devel/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
 ```
 
 If you want to deploy the driver with alpha features:
 ```sh
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/alpha/?ref=master"
+kubectl apply -k "github.com/c2devel/aws-ebs-csi-driver/deploy/kubernetes/overlays/alpha/?ref=master"
 ```
 
 Verify driver is running:
@@ -236,4 +236,4 @@ When updating the helm chart:
 * When adding a new resource template to the helm chart please update the `generate-kustomize` make target, the `deploy/kubernetes/values` files, and the appropriate kustomization.yaml file(s).
 
 ## Milestone
-[Milestones page](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/milestones)
+[Milestones page](https://github.com/c2devel/aws-ebs-csi-driver/milestones)
