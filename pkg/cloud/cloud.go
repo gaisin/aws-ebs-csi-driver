@@ -18,10 +18,13 @@ package cloud
 
 import (
 	"context"
+	"crypto/tls"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
+	"strconv"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -49,6 +52,8 @@ const (
 	VolumeTypeSC1 = "sc1"
 	// VolumeTypeST1 represents a throughput-optimized HDD type of volume.
 	VolumeTypeST1 = "st1"
+	// VolumeTypeST2 represents a throughput-optimized HDD type of volume.
+	VolumeTypeST2 = "st2"
 	// VolumeTypeStandard represents a previous type of  volume.
 	VolumeTypeStandard = "standard"
 )
@@ -65,6 +70,7 @@ const (
 )
 
 var (
+	// ValidVolumeTypes represents list of available volume types
 	ValidVolumeTypes = []string{
 		VolumeTypeIO1,
 		VolumeTypeIO2,
@@ -72,6 +78,7 @@ var (
 		VolumeTypeGP3,
 		VolumeTypeSC1,
 		VolumeTypeST1,
+		VolumeTypeST2,
 		VolumeTypeStandard,
 	}
 
@@ -225,12 +232,39 @@ func NewCloud(region string, awsSdkDebugLog bool) (Cloud, error) {
 	return newEC2Cloud(region, awsSdkDebugLog)
 }
 
+
 func newEC2Cloud(region string, awsSdkDebugLog bool) (Cloud, error) {
-	awsConfig := &aws.Config{
-		Region:                        aws.String(region),
-		CredentialsChainVerboseErrors: aws.Bool(true),
-		// Set MaxRetries to a high value. It will be "ovewritten" if context deadline comes sooner.
-		MaxRetries: aws.Int(8),
+
+	var awsConfig *aws.Config
+
+	envEndpointInsecure := os.Getenv("AWS_EC2_ENDPOINT_UNSECURE")
+	isEndpointInsecure := false
+	if envEndpointInsecure != "" {
+		var err error
+		isEndpointInsecure, err = strconv.ParseBool(envEndpointInsecure)
+		if err != nil {
+			return nil, fmt.Errorf("Unable to parse environment variable AWS_EC2_ENDPOINT_UNSECURE: %v", err)
+		}
+	}
+
+	if isEndpointInsecure {
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		client := &http.Client{Transport: tr}
+
+		awsConfig = &aws.Config{
+			Region:                        aws.String(region),
+			CredentialsChainVerboseErrors: aws.Bool(true),
+			HTTPClient:                    client,
+		}
+	} else {
+		awsConfig = &aws.Config{
+			Region:                        aws.String(region),
+			CredentialsChainVerboseErrors: aws.Bool(true),
+			// Set MaxRetries to a high value. It will be "ovewritten" if context deadline comes sooner.
+			MaxRetries:                    aws.Int(8),
+		}
 	}
 
 	endpoint := os.Getenv("AWS_EC2_ENDPOINT")
@@ -272,7 +306,7 @@ func (c *cloud) CreateDisk(ctx context.Context, volumeName string, diskOptions *
 	capacityGiB := util.BytesToGiB(diskOptions.CapacityBytes)
 
 	switch diskOptions.VolumeType {
-	case VolumeTypeGP2, VolumeTypeSC1, VolumeTypeST1, VolumeTypeStandard:
+	case VolumeTypeGP2, VolumeTypeST2, VolumeTypeStandard:
 		createType = diskOptions.VolumeType
 	case VolumeTypeIO1:
 		createType = diskOptions.VolumeType
@@ -404,7 +438,7 @@ func (c *cloud) AttachDisk(ctx context.Context, volumeID, nodeID string) (string
 
 	if !device.IsAlreadyAssigned {
 		request := &ec2.AttachVolumeInput{
-			Device:     aws.String(device.Path),
+			Device:     aws.String("disk2"),
 			InstanceId: aws.String(nodeID),
 			VolumeId:   aws.String(volumeID),
 		}
