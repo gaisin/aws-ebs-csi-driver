@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/kubernetes-sigs/aws-ebs-csi-driver.svg?branch=master)](https://travis-ci.org/kubernetes-sigs/aws-ebs-csi-driver)
-[![Coverage Status](https://coveralls.io/repos/github/kubernetes-sigs/aws-ebs-csi-driver/badge.svg?branch=master)](https://coveralls.io/github/kubernetes-sigs/aws-ebs-csi-driver?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/kubernetes-sigs/aws-ebs-csi-driver)](https://goreportcard.com/report/github.com/kubernetes-sigs/aws-ebs-csi-driver)
+[![Build Status](https://travis-ci.org/c2devel/aws-ebs-csi-driver.svg?branch=master)](https://travis-ci.org/c2devel/aws-ebs-csi-driver)
+[![Coverage Status](https://coveralls.io/repos/github/c2devel/aws-ebs-csi-driver/badge.svg?branch=master)](https://coveralls.io/github/c2devel/aws-ebs-csi-driver?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/c2devel/aws-ebs-csi-driver)](https://goreportcard.com/report/github.com/c2devel/aws-ebs-csi-driver)
 
 # Amazon Elastic Block Store (EBS) CSI driver
 
@@ -84,7 +84,7 @@ Following sections are Kubernetes specific. If you are Kubernetes user, use foll
 The driver requires IAM permission to talk to Amazon EBS to manage the volume on user's behalf. There are several methods to grant driver IAM permission:
 * Using secret object - create an IAM user with proper permission, put that user's credentials in [secret manifest](../deploy/kubernetes/secret.yaml) then deploy the secret.
 ```sh
-curl https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/deploy/kubernetes/secret.yaml > secret.yaml
+curl https://raw.githubusercontent.com/c2devel/aws-ebs-csi-driver/master/deploy/kubernetes/secret.yaml > secret.yaml
 # Edit the secret with user credentials
 kubectl apply -f secret.yaml
 ```
@@ -99,12 +99,12 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1
 #### Deploy driver
 If you want to deploy the stable driver without alpha features:
 ```sh
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+kubectl apply -k "github.com/c2devel/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
 ```
 
 If you want to deploy the driver with alpha features:
 ```sh
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/alpha/?ref=master"
+kubectl apply -k "github.com/c2devel/aws-ebs-csi-driver/deploy/kubernetes/overlays/alpha/?ref=master"
 ```
 
 Verify driver is running:
@@ -118,7 +118,7 @@ helm install --name aws-ebs-csi-driver \
     --set enableVolumeScheduling=true \
     --set enableVolumeResizing=true \
     --set enableVolumeSnapshot=true \
-    https://github.com/kubernetes-sigs/aws-ebs-csi-driver/releases/download/v0.5.0/helm-chart.tgz
+    https://github.com/c2devel/aws-ebs-csi-driver/releases/download/v0.5.0/helm-chart.tgz
 ```
 
 ## Examples
@@ -159,4 +159,4 @@ Dependencies are managed through go module. To build the project, first turn on 
 * Build image and push it with release tag: `make image-release && make push-release`
 
 ## Milestone
-[Milestones page](https://github.com/kubernetes-sigs/aws-ebs-csi-driver/milestones)
+[Milestones page](https://github.com/c2devel/aws-ebs-csi-driver/milestones)

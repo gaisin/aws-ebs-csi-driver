@@ -1,21 +1,15 @@
-module github.com/kubernetes-sigs/aws-ebs-csi-driver
+module github.com/c2devel/aws-ebs-csi-driver
 
 require (
-	github.com/aws/aws-k8s-tester/e2e/tester v0.0.0-20191204032858-d97ad2e4255e // indirect
 	github.com/aws/aws-sdk-go v1.23.21
 	github.com/container-storage-interface/spec v1.2.0
-	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
-	github.com/docker/spdystream v0.0.0-20181023171402-6480d4af844c // indirect
-	github.com/elazarl/goproxy v0.0.0-20181111060418-2ce16c963a8a // indirect
 	github.com/golang/mock v1.4.1
 	github.com/golang/protobuf v1.3.3
-	github.com/gregjones/httpcache v0.0.0-20181110185634-c63ab54fda8f // indirect
 	github.com/kubernetes-csi/csi-test v2.0.0+incompatible
 	github.com/kubernetes-csi/external-snapshotter/v2 v2.0.1
+	github.com/kubernetes-sigs/aws-ebs-csi-driver v0.5.0
 	github.com/onsi/ginkgo v1.10.2
 	github.com/onsi/gomega v1.7.0
-	github.com/tmc/grpc-websocket-proxy v0.0.0-20171017195756-830351dc03c6 // indirect
-	golang.org/x/net v0.0.0-20200226051749-491c5fce7268 // indirect
 	google.golang.org/grpc v1.26.0
 	k8s.io/api v0.17.3
 	k8s.io/apimachinery v0.17.3
