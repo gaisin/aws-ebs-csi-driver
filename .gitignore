@@ -24,3 +24,6 @@ vendor/
 
 # IntelliJ
 .idea/
+
+# VSCode
+.vscode/
