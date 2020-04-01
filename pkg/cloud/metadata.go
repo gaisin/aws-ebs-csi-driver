@@ -18,6 +18,7 @@ package cloud
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/ec2metadata"
@@ -91,12 +92,16 @@ func NewMetadataService(svc EC2Metadata) (MetadataService, error) {
 		return nil, fmt.Errorf("could not get valid EC2 instance type")
 	}
 
-	if len(doc.Region) == 0 {
+	if len(doc.Region) == 0 && os.Getenv("AWS_REGION") == "" {
 		return nil, fmt.Errorf("could not get valid EC2 region")
 	}
 
 	if len(doc.AvailabilityZone) == 0 {
 		return nil, fmt.Errorf("could not get valid EC2 availavility zone")
+	}
+
+	if len(doc.Region) == 0 {
+		doc.Region = os.Getenv("AWS_REGION")
 	}
 
 	return &Metadata{
