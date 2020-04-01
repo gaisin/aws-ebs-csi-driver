@@ -3,7 +3,7 @@ module github.com/c2devel/aws-ebs-csi-driver
 require (
 	github.com/aws/aws-sdk-go v1.23.21
 	github.com/container-storage-interface/spec v1.2.0
-	github.com/golang/mock v1.4.1
+	github.com/golang/mock v1.4.3
 	github.com/golang/protobuf v1.3.3
 	github.com/kubernetes-csi/csi-test v2.0.0+incompatible
 	github.com/kubernetes-csi/external-snapshotter/v2 v2.0.1
