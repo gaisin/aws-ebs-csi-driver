@@ -55,7 +55,7 @@ spec:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: AWS_REGION
-              value: ru-msk
+              value: croc
           volumeMounts:
             - name: kubelet-dir
               mountPath: /var/lib/kubelet
