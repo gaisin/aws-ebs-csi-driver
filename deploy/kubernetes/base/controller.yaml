@@ -24,7 +24,7 @@ spec:
           operator: Exists
       containers:
         - name: ebs-plugin
-          image: amazon/aws-ebs-csi-driver:latest
+          image: dhub.c2.croc.ru/kaas/aws-ebs-csi-driver:latest
           args :
           # - {all,controller,node} # specify the driver mode
             - --endpoint=$(CSI_ENDPOINT)
@@ -33,6 +33,10 @@ spec:
           env:
             - name: CSI_ENDPOINT
               value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+            - name: AWS_EC2_ENDPOINT
+              value: https://api.cloud.croc.ru
+            - name: AWS_REGION
+              value: croc
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:

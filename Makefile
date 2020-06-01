@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PKG=github.com/kubernetes-sigs/aws-ebs-csi-driver
-IMAGE?=amazon/aws-ebs-csi-driver
+PKG=github.com/c2devel/aws-ebs-csi-driver
+IMAGE?=dhub.c2.croc.ru/kaas/aws-ebs-csi-driver
 VERSION=v0.6.0-dirty
 GIT_COMMIT?=$(shell git rev-parse HEAD)
 BUILD_DATE?=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ")

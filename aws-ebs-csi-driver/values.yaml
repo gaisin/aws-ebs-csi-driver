@@ -5,7 +5,7 @@
 replicaCount: 2
 
 image:
-  repository: amazon/aws-ebs-csi-driver
+  repository: dhub.c2.croc.ru/kaas/aws-ebs-csi-driver
   tag: "v0.5.0"
   pullPolicy: IfNotPresent
 

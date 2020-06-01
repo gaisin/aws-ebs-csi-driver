@@ -1,4 +1,4 @@
-module github.com/kubernetes-sigs/aws-ebs-csi-driver/tests/e2e-migration
+module github.com/c2devel/aws-ebs-csi-driver/tests/e2e-migration
 
 go 1.12
 

@@ -10,7 +10,7 @@ This driver implements basic volume snapshotting functionality using the [extern
 
 1. The `VolumeSnapshotDataSource` must be set in `--feature-gates=` in the `kube-apiserver`.
 
-1. The [aws-ebs-csi-driver driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) is installed.
+1. The [aws-ebs-csi-driver driver](https://github.com/c2devel/aws-ebs-csi-driver) is installed.
 
 ### Usage
 
