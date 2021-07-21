@@ -405,7 +405,7 @@ func NewCloud(region string, awsSdkDebugLog bool) (Cloud, error) {
 }
 
 
-func newEC2Cloud(region string) (Cloud, error) {
+func newEC2Cloud(region string, awsSdkDebugLog bool) (Cloud, error) {
 
 	var awsConfig *aws.Config
 
@@ -483,12 +483,6 @@ func (c *cloud) CreateDisk(ctx context.Context, volumeName string, diskOptions *
 	case VolumeTypeIO1, VolumeTypeIO2:
 		createType = diskOptions.VolumeType
 		iops, err = capIOPS(diskOptions.VolumeType, capacityGiB, int64(diskOptions.IOPSPerGB), io1MinTotalIOPS, io1MaxTotalIOPS, io1MaxIOPSPerGB, diskOptions.AllowIOPSPerGBIncrease)
-		if err != nil {
-			return nil, err
-		}
-	case VolumeTypeIO2:
-		createType = diskOptions.VolumeType
-		iops, err = capIOPS(diskOptions.VolumeType, capacityGiB, int64(diskOptions.IOPSPerGB), io2MinTotalIOPS, io2MaxTotalIOPS, io2MaxIOPSPerGB, diskOptions.AllowIOPSPerGBIncrease)
 		if err != nil {
 			return nil, err
 		}
