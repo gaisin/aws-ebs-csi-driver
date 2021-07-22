@@ -11,7 +11,7 @@ import (
 	arn "github.com/aws/aws-sdk-go/aws/arn"
 	ec2 "github.com/aws/aws-sdk-go/service/ec2"
 	gomock "github.com/golang/mock/gomock"
-	cloud "github.com/kubernetes-sigs/aws-ebs-csi-driver/pkg/cloud"
+	cloud "github.com/c2devel/aws-ebs-csi-driver/pkg/cloud"
 )
 
 // MockCloud is a mock of Cloud interface.
