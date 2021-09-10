@@ -680,6 +680,10 @@ func (c *cloud) DetachDisk(ctx context.Context, volumeID, nodeID string) error {
 
 	_, err = c.ec2.DetachVolumeWithContext(ctx, request)
 	if err != nil {
+		if isAWSErrorVolumeIsNotAttached(err) {
+			klog.Warningf("Volume %v was already detached from node %v, ignoring...", volumeID, nodeID)
+			return nil
+		}
 		if isAWSErrorIncorrectState(err) ||
 			isAWSErrorInvalidAttachmentNotFound(err) ||
 			isAWSErrorVolumeNotFound(err) {
@@ -1192,6 +1196,10 @@ func isAWSErrorModificationNotFound(err error) bool {
 // reported when the specified snapshot doesn't exist.
 func isAWSErrorSnapshotNotFound(err error) bool {
 	return isAWSError(err, "InvalidSnapshot.NotFound")
+}
+
+func isAWSErrorVolumeIsNotAttached(err error) bool {
+	return isAWSError(err, "VolumeIsNotAttached")
 }
 
 // ResizeDisk resizes an EBS volume in GiB increments, rouding up to the next possible allocatable unit.
