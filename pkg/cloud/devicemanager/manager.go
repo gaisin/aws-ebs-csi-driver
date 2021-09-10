@@ -200,10 +200,6 @@ func (d *deviceManager) getVolumeIdsInUse(instance *ec2.Instance) []string {
 		// trim device prefix from name
 		name = strings.TrimPrefix(name, devPreffix)
 
-		if len(name) < 1 || len(name) > 2 {
-			klog.Warningf("Unexpected EBS DeviceName: %q", aws.StringValue(blockDevice.DeviceName))
-		}
-
 		inUse = append(inUse, *blockDevice.Ebs.VolumeId)
 	}
 
